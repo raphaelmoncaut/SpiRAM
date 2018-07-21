@@ -73,6 +73,7 @@ byte SpiRAM::read_byte(unsigned address)
   // Write address, read data
   enable();
   _spi.transfer(READ);
+  _spi.transfer(address >> 16);//for devices with 24 bit address
   _spi.transfer(address >> 8);
   _spi.transfer(address);
   read_byte = _spi.transfer(0xFF);
@@ -89,6 +90,7 @@ byte SpiRAM::write_byte(unsigned address, byte data_byte)
   // Write address, read data
   enable();
   _spi.transfer(WRITE);
+  _spi.transfer(address >> 16);//for devices with 24 bit address
   _spi.transfer(address >> 8);
   _spi.transfer(address);
   _spi.transfer(data_byte);
@@ -109,6 +111,7 @@ void SpiRAM::read_page(unsigned address, byte *buffer)
   // Write address, read data
   enable();
   _spi.transfer(READ);
+  _spi.transfer(address >> 16);//for devices with 24 bit address
   _spi.transfer(address >> 8);
   _spi.transfer(address);
   for (i = 0; i < 32; i++) {
@@ -127,6 +130,7 @@ void SpiRAM::write_page(unsigned address, byte *buffer)
   // Write address, read data
   enable();
   _spi.transfer(WRITE);
+  _spi.transfer(address >> 16);//for devices with 24 bit address
   _spi.transfer(address >> 8);
   _spi.transfer(address);
   for (i = 0; i < 32; i++) {
@@ -146,6 +150,7 @@ void SpiRAM::read_stream(unsigned address, byte *buffer, int length)
   // Write address, read data
   enable();
   _spi.transfer(READ);
+  _spi.transfer(address >> 16);//for devices with 24 bit address
   _spi.transfer(address >> 8);
   _spi.transfer(address);
   for (i = 0; i < length; i++) {
@@ -164,6 +169,7 @@ void SpiRAM::write_stream(unsigned address, byte *buffer, int length)
   // Write address, read data
   enable();
   _spi.transfer(WRITE);
+  _spi.transfer(address >> 16);//for devices with 24 bit address
   _spi.transfer(address >> 8);
   _spi.transfer(address);
   for (i = 0; i < length; i++) {
